@@ -2,13 +2,36 @@
 
 [![Tests](https://github.com/benhoyt/inih/actions/workflows/tests.yml/badge.svg)](https://github.com/benhoyt/inih/actions/workflows/tests.yml)
 
-**inih (INI Not Invented Here)** is a simple [.INI file](http://en.wikipedia.org/wiki/INI_file) parser written in C. It's only a couple of pages of code, and it was designed to be _small and simple_, so it's good for embedded systems. It's also more or less compatible with Python's [ConfigParser](http://docs.python.org/library/configparser.html) style of .INI files, including RFC 822-style multi-line syntax and `name: value` entries.
+**inih (INI Not Invented Here)** is a simple [.INI file](http://en.wikipedia.org/wiki/INI_file) parser written in C, by [Ben Hoyt](https://github.com/benhoyt). It's only a couple of pages of code, and it was designed to be _small and simple_, so it's good for embedded systems. It's also more or less compatible with Python's [ConfigParser](http://docs.python.org/library/configparser.html) style of .INI files, including RFC 822-style multi-line syntax and `name: value` entries.
 
 To use it, just give `ini_parse()` an INI file, and it will call a callback for every `name=value` pair parsed, giving you strings for the section, name, and value. It's done this way ("SAX style") because it works well on low-memory embedded systems, but also because it makes for a KISS implementation.
 
 You can also call `ini_parse_file()` to parse directly from a `FILE*` object, `ini_parse_string()` to parse data from a string, or `ini_parse_stream()` to parse using a custom fgets-style reader function for custom I/O.
 
 Download a release, browse the source, or read about [how to use inih in a DRY style](http://blog.brush.co.nz/2009/08/xmacros/) with X-Macros.
+
+
+## Using inih with npm
+
+Run:
+```bash
+$ npm i inih.c
+```
+
+And then include `ini.h` as follows:
+```c
+#include "node_modules/inih.c/ini.h"
+```
+
+You may also want to include `ini.c` as follows:
+```c
+#ifndef __INIH_C__
+#define __INIH_C__
+#include "node_modules/inih.c/ini.c"
+#endif
+```
+
+This will include both the function declaration and their definitions into a single file.
 
 
 ## Compile-time options ##
@@ -140,6 +163,7 @@ Some differences between inih and Python's [ConfigParser](http://docs.python.org
 * If you want to use inih for programs which may be shipped in a distro, consider linking against the shared libraries. The pkg-config entries are `inih` and `INIReader`.
 * In case you use inih as a Meson subproject, you can use the `inih_dep` and `INIReader_dep` dependency variables. You might want to set `default_library=static` and `distro_install=false` for the subproject. An official Wrap is provided on [WrapDB](https://wrapdb.mesonbuild.com/inih).
 * For packagers: if you want to tag the version in the pkg-config file, you will need to do this downstream. Add `version : '<version_as_int>',` after the `license` tag in the `project()` function and `version : meson.project_version(),` after the `soversion` tag in both `library()` functions.
+
 
 ## Using inih with tipi.build
 
