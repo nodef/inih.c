@@ -1,0 +1,23 @@
+{
+  "name": "inih.c",
+  "version": "1.62.0",
+  "description": "Simple .INI file parser in C, good for embedded systems; Ben Hoyt (2009).",
+  "keywords": [
+    "c",
+    "library",
+    "ini",
+    "parser",
+    "embedded",
+    "systems"
+  ],
+  "homepage": "https://github.com/nodef/inih.c#readme",
+  "bugs": {
+    "url": "https://github.com/nodef/inih.c/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodef/inih.c.git"
+  },
+  "license": "BSD-3-Clause",
+  "main": "inih.h"
+}
